@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Sistema de Gestión</h1>
+        <div class="nav-links">
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/reservas}">Reservas</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="welcome">
+            <h2>Bienvenido al Sistema de Fitness S.A.C</h2>
+            <p>Gestiona clientes, trainers y entrenamientos de forma eficiente</p>
+        </div>
+        
+        <div class="menu-grid">
+            <div class="menu-card">
+                <h3>Gestionar Clientes</h3>
+                <p>Administra la información de todos los clientes</p>
+                <a th:href="@{/clientes}">Ir a Clientes</a>
+            </div>
+            
+            <div class="menu-card">
+                <h3>Gestionar Reservas</h3>
+                <p>Administra las reservas de entrenamientos</p>
+                <a th:href="@{/reservas}">Ir a Reservas</a>
+            </div>
+            
+            <div class="menu-card">
+                <h3>Gestionar Trainers</h3>
+                <p>Administra la información de los entrenadores</p>
+                <a th:href="@{/trainers}">Ir a Trainers</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

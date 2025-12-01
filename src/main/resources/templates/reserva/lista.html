@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Gestión de Reservas</h1>
+        <div class="nav-links">
+            <a th:href="@{/home}">Inicio</a>
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/reservas}">Reservas</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Lista de Reservas</h2>
+                <a th:href="@{/reservas/nuevo}" class="btn btn-primary">+  Nueva Reserva</a>
+            </div>
+            
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Trainer</th>
+                            <th>Fecha y Hora</th>
+                            <th>Tipo</th>
+                            <th>Ubicación</th>
+                            <th>Estado</th>
+                            <th>Asistencia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva : ${reservas}">
+                            <td th:text="${reserva.id}"></td>
+                            <td th:text="${reserva.cliente != null ? reserva.cliente.nombre + ' ' + reserva.cliente.apellido : 'Sin asignar'}"></td>
+                            <td th:text="${reserva.trainer != null ? reserva.trainer.nombre + ' ' + reserva.trainer.apellido : 'Sin asignar'}"></td>
+                            <td th:text="${#temporals.format(reserva.fechaReserva, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${reserva.tipoEntrenamiento}"></td>
+                            <td th:text="${reserva.ubicacion}"></td>
+                            <td>
+                                <span th:text="${reserva.estado}" 
+                                      th:class="${'badge ' + (reserva.estado == 'Confirmada' ? 'badge-success' : (reserva.estado == 'Completada' ? 'badge-info' : 'badge-danger'))}">
+                                </span>
+                            </td>
+                            <td>
+                                <span th:text="${reserva.asistencia}" 
+                                      th:class="${'badge ' + (reserva.asistencia == 'Asistió' ? 'badge-success' : (reserva.asistencia == 'Faltó' ? 'badge-danger' : 'badge-warning'))}">
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{/reservas/editar(id=${reserva.id})}" 
+                                   class="btn btn-warning btn-sm">Editar</a>
+                                <a th:href="@{/reservas/eliminar(id=${reserva.id})}" 
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('¿Está seguro de eliminar esta reserva?')">Eliminar</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(reservas)}">
+                            <td colspan="9" style="text-align: center; padding: 2rem;">
+                                No hay reservas registradas
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

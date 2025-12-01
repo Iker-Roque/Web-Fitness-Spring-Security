@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Reserva - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Editar Reserva</h1>
+        <div class="nav-links">
+            <a th:href="@{/home}">Inicio</a>
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/reservas}">Reservas</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Editar Reserva #<span th:text="${reserva.id}"></span></h2>
+            </div>
+            
+            <div class="card-body">
+                <form th:action="@{/reservas/actualizar}" method="post">
+                    
+                    <!-- Campo oculto para el ID -->
+                    <input type="hidden" name="id" th:value="${reserva.id}">
+                    
+                    <div class="form-group">
+                        <label for="clienteId">Cliente *</label>
+                        <select name="clienteId" id="clienteId" class="form-control" required>
+                            <option value="">-- Seleccione un cliente --</option>
+                            <option th:each="cliente : ${clientes}" 
+                                    th:value="${cliente.id}"
+                                    th:text="${cliente.nombre + ' ' + cliente.apellido}"
+                                    th:selected="${cliente.id == reserva.cliente.id}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="trainerId">Trainer *</label>
+                        <select name="trainerId" id="trainerId" class="form-control" required>
+                            <option value="">-- Seleccione un trainer --</option>
+                            <option th:each="trainer : ${trainers}" 
+                                    th:value="${trainer.id}"
+                                    th:text="${trainer.nombre + ' ' + trainer.apellido}"
+                                    th:selected="${trainer.id == reserva.trainer.id}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fechaReserva">Fecha y Hora de Reserva *</label>
+                        <input type="datetime-local" 
+                               name="fechaReserva" 
+                               id="fechaReserva" 
+                               th:value="${#temporals.format(reserva.fechaReserva, 'yyyy-MM-dd''T''HH:mm')}"
+                               class="form-control" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipoEntrenamiento">Tipo de Entrenamiento *</label>
+                        <select name="tipoEntrenamiento" id="tipoEntrenamiento" class="form-control" required>
+                            <option value="">-- Seleccione tipo --</option>
+                            <option value="Personal" th:selected="${reserva.tipoEntrenamiento == 'Personal'}">Personal</option>
+                            <option value="Grupal" th:selected="${reserva.tipoEntrenamiento == 'Grupal'}">Grupal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación *</label>
+                        <select name="ubicacion" id="ubicacion" class="form-control" required>
+                            <option value="">-- Seleccione ubicación --</option>
+                            <option value="Aire libre" th:selected="${reserva.ubicacion == 'Aire libre'}">Aire libre</option>
+                            <option value="Local" th:selected="${reserva.ubicacion == 'Local'}">Local</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estado">Estado *</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="">-- Seleccione estado --</option>
+                            <option value="Pendiente" th:selected="${reserva.estado == 'Pendiente'}">Pendiente</option>
+                            <option value="Confirmada" th:selected="${reserva.estado == 'Confirmada'}">Confirmada</option>
+                            <option value="Cancelada" th:selected="${reserva.estado == 'Cancelada'}">Cancelada</option>
+                            <option value="Completada" th:selected="${reserva.estado == 'Completada'}">Completada</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asistencia">Asistencia</label>
+                        <select name="asistencia" id="asistencia" class="form-control">
+                            <option value="Pendiente" th:selected="${reserva.asistencia == 'Pendiente'}">Pendiente</option>
+                            <option value="Asistió" th:selected="${reserva.asistencia == 'Asistió'}">Asistió</option>
+                            <option value="Faltó" th:selected="${reserva.asistencia == 'Faltó'}">Faltó</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Actualizar Reserva</button>
+                        <a th:href="@{/reservas}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

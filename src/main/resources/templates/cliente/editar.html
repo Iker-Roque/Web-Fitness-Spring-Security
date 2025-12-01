@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Editar Cliente</h1>
+        <div class="nav-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="form-container">
+        <h2>Editar Cliente</h2>
+        
+        <form method="POST" th:action="@{/clientes/actualizar}">
+            <input type="hidden" name="id" th:value="${cliente.id}">
+            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" th:value="${cliente.nombre}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" th:value="${cliente.apellido}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:value="${cliente.email}">
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" th:value="${cliente.telefono}">
+            </div>
+            
+            <div class="form-group">
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" th:value="${cliente.dni}">
+            </div>
+            
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" required>
+                    <option value="">-- Seleccionar --</option>
+                    <option value="Activo" th:selected="${cliente.estado == 'Activo'}">Activo</option>
+                    <option value="Inactivo" th:selected="${cliente.estado == 'Inactivo'}">Inactivo</option>
+                    <option value="Bloqueado" th:selected="${cliente.estado == 'Bloqueado'}">Bloqueado</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="faltas">Faltas:</label>
+                <input type="number" id="faltas" name="faltas" th:value="${cliente.faltas}">
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary">Actualizar Cliente</button>
+                <a th:href="@{/clientes}" class="btn-cancel" style="padding: 12px; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

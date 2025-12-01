@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainers - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Gestión de Trainers</h1>
+        <div class="nav-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Lista de Trainers</h2>
+            <a th:href="@{/trainers/nuevo}" class="btn btn-primary">+ Nuevo Trainer</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Especialidad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="trainer : ${trainers}">
+                    <td th:text="${trainer.id}"></td>
+                    <td th:text="${trainer.nombre}"></td>
+                    <td th:text="${trainer.apellido}"></td>
+                    <td th:text="${trainer.email}"></td>
+                    <td th:text="${trainer.telefono}"></td>
+                    <td th:text="${trainer.especialidad}"></td>
+                    <td th:text="${trainer.estado}"></td>
+                    <td>
+                        <a th:href="@{/trainers/editar(id=${trainer.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/trainers/eliminar(id=${trainer.id})}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${#lists.isEmpty(trainers)}" style="text-align: center; padding: 40px; color: #999;">
+            <p>No hay trainers registrados</p>
+        </div>
+    </div>
+</body>
+</html>

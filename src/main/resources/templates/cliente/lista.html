@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Fitness S.A.C - Gestión de Clientes</h1>
+        <div class="nav-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/clientes}">Clientes</a>
+            <a th:href="@{/trainers}">Trainers</a>
+            <a th:href="@{/logout}">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Lista de Clientes</h2>
+            <a th:href="@{/clientes/nuevo}" class="btn btn-primary">+ Nuevo Cliente</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>DNI</th>
+                    <th>Estado</th>
+                    <th>Faltas</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.nombre}"></td>
+                    <td th:text="${cliente.apellido}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:text="${cliente.telefono}"></td>
+                    <td th:text="${cliente.dni}"></td>
+                    <td th:text="${cliente.estado}"></td>
+                    <td th:text="${cliente.faltas}"></td>
+                    <td>
+                        <a th:href="@{/clientes/editar(id=${cliente.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/clientes/eliminar(id=${cliente.id})}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${#lists.isEmpty(clientes)}" style="text-align: center; padding: 40px; color: #999;">
+            <p>No hay clientes registrados</p>
+        </div>
+    </div>
+</body>
+</html>

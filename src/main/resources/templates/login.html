@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fitness S.A.C</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Fitness S.A.C</h1>
+        
+        <div th:if="${param.error}" class="error-message">
+            Usuario o contraseña incorrectos
+        </div>
+        
+        <form method="POST" th:action="@{/login}">
+            <div class="form-group">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+        </form>
+        
+        <p class="demo-info">
+            Usuario demo: <strong>admin</strong> | Contraseña: <strong>123456</strong>
+        </p>
+    </div>
+</body>
+</html>
